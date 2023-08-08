@@ -9,7 +9,6 @@ const app = createApp(App)
 
 app.directive('hidden', {
   mounted(el, binding) {
-    console.log('binding ----->', binding,binding.value)
     if (binding.value) el.style.opacity = '1'
     else el.style.opacity = '0'
   },

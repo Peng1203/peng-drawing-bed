@@ -1,9 +1,11 @@
 <template>
   <!-- hover:cursor-pointer -->
   <!-- <div>已选择文件数: {{ selectedFileNum }}</div> -->
+  <!-- <div class="progress-bar"></div> -->
+  <progress class="w-full h-2 bg-gray-200 rounded-md" :value="uploadProgress" max="1" id="progress"></progress>
   <p class="text-left w-full max-w-6xl mb-3">
     <span class="text-red-500 align-sub">*</span>
-    只能上传图片类型的文件 单次只能上传一个文件 且大小限制在 2MB 内
+    只能上传图片类型的文件 单次只能上传一个文件 且大小限制在 4MB 内
   </p>
   <div class="con " :class="isAbove ? 'on-above' : ''" ref="dragoverRef" @dragover="handle" @drop="handleDrop">
     <!-- {{ isAbove }} -->
@@ -37,6 +39,8 @@ const copyBtnRef = ref<HTMLButtonElement | null>(null)
 
 const clipboard = ref()
 
+const uploadProgress = ref<number>(0)
+
 onMounted(() => {
   if (copyBtnRef.value) {
     clipboard.value = new Clipboard(copyBtnRef.value)
@@ -66,11 +70,16 @@ const selectedFileNum = ref<number>(0)
 // 上传文件
 const handleUploadFile = async () => {
   try {
+    // 从新上传时重置 上传进度条
+    uploadProgress.value = 0
     if (!formDatas.value.getAll('file').length) return
     const { data: res } = await axios({
       url: `${API_URL}/upload`,
       method: 'post',
       data: formDatas.value,
+      onUploadProgress({ progress }) {
+        uploadProgress.value = progress as number
+      }
     })
     imgValue.value = res
     alert('上传文件成功')
@@ -186,4 +195,21 @@ onUnmounted(() => {
 //   width: 90%;
 //   background: red;
 // }
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e5e7eb;
+  border-radius: 4px;
+}
+
+.progress-bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background-color: #10b981;
+  border-radius: 4px;
+  // width: v-bind(uploadProgress); /* 修改这里的值来表示进度的百分比 */
+  width: 50%; /* 修改这里的值来表示进度的百分比 */
+}
 </style>

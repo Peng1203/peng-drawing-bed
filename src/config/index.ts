@@ -15,4 +15,5 @@ export const MimeTypes = [
 export const maxSize = 1024 * 1024 * 4
 
 
-export const API_URL =  'http://127.0.0.1:3001'
+// export const API_URL =  'http://127.0.0.1:3001'
+export const API_URL =  'https://api.peng1203.cn'

@@ -20,5 +20,5 @@ export const MimeTypes = [
   'image/vnd.microsoft.icon',
 ]
 
-// 上传文件大小 2兆
+// 上传文件大小 4兆
 export const maxSize = 1024 * 1024 * 4
