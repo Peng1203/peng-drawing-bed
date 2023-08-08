@@ -2,7 +2,7 @@
   <!-- hover:cursor-pointer -->
   <!-- <div>已选择文件数: {{ selectedFileNum }}</div> -->
   <!-- <div class="progress-bar"></div> -->
-  <progress class="w-full h-2 bg-gray-200 rounded-md" :value="uploadProgress" max="1" id="progress"></progress>
+  <progress class="w-full max-w-6xl h-2 bg-gray-200 rounded-md" :value="uploadProgress" max="1" id="progress"></progress>
   <p class="text-left w-full max-w-6xl mb-3">
     <span class="text-red-500 align-sub">*</span>
     只能上传图片类型的文件 单次只能上传一个文件 且大小限制在 4MB 内
@@ -109,7 +109,7 @@ const handle = (e: DragEvent) => {
 const handleDrop = (event: DragEvent) => {
   // 每次选择新的文件 清空之前选择的 formData 对象
   formDatas.value = new FormData()
-
+  uploadProgress.value = 0
   event.preventDefault();
 
   const files = event.dataTransfer?.files;
@@ -153,6 +153,7 @@ const handleClickUpload = () => {
 const handleSelectFileChange = (e: Event) => {
   // 每次选择新的文件 清空之前选择的 formData 对象
   formDatas.value = new FormData()
+  uploadProgress.value = 0
   const target = e.target as HTMLInputElement
   if (!target.files?.length) return
   // 选中的为单个文件
