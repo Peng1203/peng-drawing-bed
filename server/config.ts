@@ -2,7 +2,7 @@ import { normalize } from 'path'
 
 export const PORT = 3001
 
-export const HOST_NAME = process.env.NODE_ENV === 'production' ? 'https://img.zpeng.top' : 'http://127.0.0.1:' + PORT
+export const HOST_NAME = process.env.NODE_ENV === 'production' ? 'https://api.peng1203.cn' : 'http://127.0.0.1:' + PORT
 
 
 export const PATH = process.env.NODE_ENV === 'production' ? '/var/upload' : normalize('C:\\练习时长30个月\\upload')
